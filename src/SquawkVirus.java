@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD
- * Created by mo on 10/10/16.
-=======
  * Created by mo on 10/8/16.
->>>>>>> origin/master
  */
 
 import java.util.*;
