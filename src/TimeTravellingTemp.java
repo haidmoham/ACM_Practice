@@ -1,59 +1,18 @@
 /**
- * Created by mo on 10/9/16.
+ * Created by mo on 10/12/16.
  */
 
 import java.util.*;
 import java.io.*;
 
-public class LetsMeet {
-    /**
-     * Based on a BFS, but there's more to this problem
-     * Perhaps binary search through the times???
-     */
-    static ArrayList<ArrayList<Integer>> graph;
+public class TimeTravellingTemp {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), m = sc.nextInt();
-        graph = new ArrayList<>();
-        for (int i = 0; i <  n; i++)
-            graph.add(new ArrayList<>());
-        for (int i = 0; i < m; i++){
-            int a = sc.nextInt(), b = sc.nextInt();
-            graph.get(a).add(b);
-            graph.get(b).add(a);
-        }
-        int start = sc.nextInt(), goal = sc.nextInt();
-        double bfs1 = (double) bfs(graph, start, goal);
-        double bfs2 = (double) bfs(graph, goal, start);
-        if (bfs1 == -1 || bfs2 == -1) System.out.println("never meet");
-        else System.out.println((bfs1 + bfs2) / 4);
+        int x = sc.nextInt(), y = sc.nextInt();
+
     }
 
-
-    public static int bfs(ArrayList<ArrayList<Integer>> graph, int start, int goal) {
-        int[] dist = new int[graph.size()];
-        Set<Integer> visited = new HashSet<>();
-        Queue<Integer> frontier = new ArrayDeque<>();
-
-        dist[start] = 0;
-        frontier.add(start);
-        while (!frontier.isEmpty()) {
-            int current = frontier.poll();
-            int d = dist[current];
-            if (current == goal)
-                return d;
-
-            for (int adj : graph.get(current)) {
-                if (!visited.contains(adj)) {
-                    frontier.offer(adj);
-                    visited.add(adj);
-                    dist[adj] = d + 1;
-                }
-            }
-        }
-        return -1;
-    }
     public static class FastScanner {
         BufferedReader br;
         StringTokenizer st;

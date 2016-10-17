@@ -1,59 +1,36 @@
 /**
- * Created by mo on 10/9/16.
+ * Created by mo on 10/17/16.
  */
 
 import java.util.*;
 import java.io.*;
+import static java.lang.Math.*;
 
-public class LetsMeet {
-    /**
-     * Based on a BFS, but there's more to this problem
-     * Perhaps binary search through the times???
-     */
-    static ArrayList<ArrayList<Integer>> graph;
+public class Bits {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), m = sc.nextInt();
-        graph = new ArrayList<>();
-        for (int i = 0; i <  n; i++)
-            graph.add(new ArrayList<>());
-        for (int i = 0; i < m; i++){
-            int a = sc.nextInt(), b = sc.nextInt();
-            graph.get(a).add(b);
-            graph.get(b).add(a);
-        }
-        int start = sc.nextInt(), goal = sc.nextInt();
-        double bfs1 = (double) bfs(graph, start, goal);
-        double bfs2 = (double) bfs(graph, goal, start);
-        if (bfs1 == -1 || bfs2 == -1) System.out.println("never meet");
-        else System.out.println((bfs1 + bfs2) / 4);
-    }
-
-
-    public static int bfs(ArrayList<ArrayList<Integer>> graph, int start, int goal) {
-        int[] dist = new int[graph.size()];
-        Set<Integer> visited = new HashSet<>();
-        Queue<Integer> frontier = new ArrayDeque<>();
-
-        dist[start] = 0;
-        frontier.add(start);
-        while (!frontier.isEmpty()) {
-            int current = frontier.poll();
-            int d = dist[current];
-            if (current == goal)
-                return d;
-
-            for (int adj : graph.get(current)) {
-                if (!visited.contains(adj)) {
-                    frontier.offer(adj);
-                    visited.add(adj);
-                    dist[adj] = d + 1;
-                }
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            String in = sc.nextLine();
+            int len = in.length();
+            int ones = 0;
+            for (int j = 1; j < len; i++){
+                int ip = Integer.parseInt(in.substring(0, j));
+                //System.out.println(ip);
+                ones = max(countOnes(Integer.toBinaryString(ip)), ones);
             }
+            System.out.println(ones);
         }
-        return -1;
     }
+    public static int countOnes(String str) {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++)
+            if (str.charAt(i) == '1')
+                count++;
+        return count;
+    }
+
     public static class FastScanner {
         BufferedReader br;
         StringTokenizer st;
