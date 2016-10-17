@@ -1,11 +1,16 @@
 /**
+<<<<<<< HEAD
  * Created by mo on 10/10/16.
+=======
+ * Created by mo on 10/8/16.
+>>>>>>> origin/master
  */
 
 import java.util.*;
 import java.io.*;
 
 public class SquawkVirus {
+<<<<<<< HEAD
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
