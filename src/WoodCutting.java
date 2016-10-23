@@ -1,45 +1,38 @@
 /**
-<<<<<<< HEAD
- * Created by mo on 10/10/16.
-=======
- * Created by mo on 10/8/16.
->>>>>>> origin/master
+ * Created by mo on 10/21/16.
  */
 
 import java.util.*;
 import java.io.*;
 
-public class SquawkVirus {
+import static java.lang.Math.*;
+
+public class WoodCutting {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), m = sc.nextInt(), s = sc.nextInt(), t = sc.nextInt();
-        List<Integer>[] adj = new List[n];
-        for (int i = 0; i < n; i++)
-            adj[i] = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            int u = sc.nextInt(), v = sc.nextInt();
-            adj[u].add(v);
-            adj[v].add(u);
-        }
-        long[] sqin = new long[n];
-        long[] sqout = new long[n];
-        sqout[s] = 1;
-        for (int i = 0; i < t; i++) {
-            for (int v = 0; v < n; v++) {
-                for (int w : adj[v]) {
-                    sqin[w] += sqout[v];
+        int T = sc.nextInt();
+        for (int t = 0; t < T; t++) {
+            int N = sc.nextInt();
+            ArrayList<Double> in = new ArrayList<>();
+            for (int i = 0; i < N; i++) {
+                int n = sc.nextInt();
+                in.add(sc.nextDouble());
+                for (int j = 1; j < n; j++) {
+                    in.add(in.get(j-1) + sc.nextDouble());
                 }
             }
-            for (int v = 0; v < n; v++) {
-                sqout[v] = sqin[v];
-                sqin[v] = 0;
+            Collections.sort(in);
+            System.out.println(in);
+            double w = 0;
+            double ps = 0;
+            for (Double p : in){
+                ps += p;
+                w += ps;
             }
+            System.out.printf("%.17f", w / ((double) in.size()));
+            System.out.println();
         }
-        long total = 0;
-        for (int i = 0; i < n; i++)
-            total += sqout[i];
-        System.out.println(total);
     }
 
     public static class FastScanner {

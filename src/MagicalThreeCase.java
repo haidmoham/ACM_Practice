@@ -1,45 +1,21 @@
 /**
-<<<<<<< HEAD
- * Created by mo on 10/10/16.
-=======
- * Created by mo on 10/8/16.
->>>>>>> origin/master
+ * Created by mo on 10/22/16.
  */
 
 import java.util.*;
 import java.io.*;
 
-public class SquawkVirus {
+import static java.lang.Math.*;
+
+public class MagicalThreeCase {
+    static int INF = 104;
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), m = sc.nextInt(), s = sc.nextInt(), t = sc.nextInt();
-        List<Integer>[] adj = new List[n];
-        for (int i = 0; i < n; i++)
-            adj[i] = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            int u = sc.nextInt(), v = sc.nextInt();
-            adj[u].add(v);
-            adj[v].add(u);
+        for (int i = 0; i < 1000; i++){
+            System.out.println(INF);
         }
-        long[] sqin = new long[n];
-        long[] sqout = new long[n];
-        sqout[s] = 1;
-        for (int i = 0; i < t; i++) {
-            for (int v = 0; v < n; v++) {
-                for (int w : adj[v]) {
-                    sqin[w] += sqout[v];
-                }
-            }
-            for (int v = 0; v < n; v++) {
-                sqout[v] = sqin[v];
-                sqin[v] = 0;
-            }
-        }
-        long total = 0;
-        for (int i = 0; i < n; i++)
-            total += sqout[i];
-        System.out.println(total);
+        System.out.println(0);
     }
 
     public static class FastScanner {

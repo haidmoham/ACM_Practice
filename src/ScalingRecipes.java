@@ -1,45 +1,38 @@
 /**
-<<<<<<< HEAD
- * Created by mo on 10/10/16.
-=======
- * Created by mo on 10/8/16.
->>>>>>> origin/master
+ * Created by mo on 10/22/16.
  */
 
 import java.util.*;
 import java.io.*;
 
-public class SquawkVirus {
+import static java.lang.Math.*;
+
+public class ScalingRecipes {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), m = sc.nextInt(), s = sc.nextInt(), t = sc.nextInt();
-        List<Integer>[] adj = new List[n];
-        for (int i = 0; i < n; i++)
-            adj[i] = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            int u = sc.nextInt(), v = sc.nextInt();
-            adj[u].add(v);
-            adj[v].add(u);
-        }
-        long[] sqin = new long[n];
-        long[] sqout = new long[n];
-        sqout[s] = 1;
-        for (int i = 0; i < t; i++) {
-            for (int v = 0; v < n; v++) {
-                for (int w : adj[v]) {
-                    sqin[w] += sqout[v];
-                }
+        int nmax = 20;
+        String[] rs = new String[nmax];
+        double[] ws = new double[nmax];
+        double[] ps = new double[nmax];
+
+        int T = sc.nextInt();
+        for (int t = 0; t < T; t++) {
+            int r = sc.nextInt(), p = sc.nextInt(), d = sc.nextInt();
+            double mainW = 0;
+            for (int i = 0; i < r; i++) {
+                rs[i] = sc.next();
+                ws[i] = sc.nextDouble();
+                ps[i] = 0.01 * sc.nextDouble();
+                if (abs(ps[i] - 1) < 1e-6)
+                    mainW = ws[i] * d / p;
             }
-            for (int v = 0; v < n; v++) {
-                sqout[v] = sqin[v];
-                sqin[v] = 0;
+            System.out.printf("Recipe # %d\n", t + 1);
+            for (int i = 0; i < r; i++) {
+                System.out.printf("%s %.1f\n", rs[i], ps[i] * mainW);
             }
+            System.out.println("----------------------------------------");
         }
-        long total = 0;
-        for (int i = 0; i < n; i++)
-            total += sqout[i];
-        System.out.println(total);
     }
 
     public static class FastScanner {

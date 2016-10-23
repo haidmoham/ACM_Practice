@@ -4,13 +4,34 @@
 
 import java.util.*;
 import java.io.*;
+import static java.lang.Math.*;
 
 public class FlowerGarden {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
         boolean[] isPrime = sieve(20002);
+        out: for (int i = 0; i < n; i++){
+            int N = sc.nextInt();
+            long D = sc.nextLong();
+            int px = 0, py = 0;
+            double dist = 0;
 
+            int lastPrime = 0;
+            in: for (int j = 1; j <= N; j++) {
+                int x = sc.nextInt(), y = sc.nextInt();
+                double dx = x - px;
+                double dy = y - py;
+                double d = sqrt((dx * dx) + (dy * dy));
+                dist += d;
+                px = x;
+                py = y;
+                if (isPrime[j])
+                    lastPrime = j;
+            }
+            System.out.println(lastPrime);
+        }
     }
     static boolean[] sieve (int N){
         boolean [] a = new boolean[N+1];

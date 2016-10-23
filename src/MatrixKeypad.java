@@ -1,45 +1,40 @@
 /**
-<<<<<<< HEAD
- * Created by mo on 10/10/16.
-=======
- * Created by mo on 10/8/16.
->>>>>>> origin/master
+ * Created by mo on 10/22/16.
  */
 
 import java.util.*;
 import java.io.*;
 
-public class SquawkVirus {
+import static java.lang.Math.*;
+
+public class MatrixKeypad {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), m = sc.nextInt(), s = sc.nextInt(), t = sc.nextInt();
-        List<Integer>[] adj = new List[n];
-        for (int i = 0; i < n; i++)
-            adj[i] = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            int u = sc.nextInt(), v = sc.nextInt();
-            adj[u].add(v);
-            adj[v].add(u);
-        }
-        long[] sqin = new long[n];
-        long[] sqout = new long[n];
-        sqout[s] = 1;
-        for (int i = 0; i < t; i++) {
-            for (int v = 0; v < n; v++) {
-                for (int w : adj[v]) {
-                    sqin[w] += sqout[v];
+        int T = sc.nextInt();
+        out: for (int t = 0; t < T; t++) {
+            int r = sc.nextInt(), c = sc.nextInt();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < r; i++) {
+                String in = sc.next();
+                for (int j = 0; j < c; j++) {
+                    sb.append(in.charAt(j) == '1' ? 'I' : 'N');
                 }
+                sb.append('\n');
             }
-            for (int v = 0; v < n; v++) {
-                sqout[v] = sqin[v];
-                sqin[v] = 0;
+            if (r + c >= 6) {
+                System.out.print(sb.toString());
+                System.out.println("----------");
+            }
+            else if (r + c > 4) {
+                System.out.print(sb.toString().replaceAll("I", "P"));
+                System.out.println("----------");
+            }
+            else {
+                System.out.println("impossible");
+                System.out.println("----------");
             }
         }
-        long total = 0;
-        for (int i = 0; i < n; i++)
-            total += sqout[i];
-        System.out.println(total);
     }
 
     public static class FastScanner {

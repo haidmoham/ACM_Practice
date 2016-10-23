@@ -1,45 +1,40 @@
 /**
-<<<<<<< HEAD
- * Created by mo on 10/10/16.
-=======
- * Created by mo on 10/8/16.
->>>>>>> origin/master
+ * Created by mo on 10/22/16.
  */
 
 import java.util.*;
 import java.io.*;
 
-public class SquawkVirus {
+import static java.lang.Math.*;
+
+public class FlippingCardsUnionFind {
+    private static int[] s, c;
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), m = sc.nextInt(), s = sc.nextInt(), t = sc.nextInt();
-        List<Integer>[] adj = new List[n];
-        for (int i = 0; i < n; i++)
-            adj[i] = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            int u = sc.nextInt(), v = sc.nextInt();
-            adj[u].add(v);
-            adj[v].add(u);
-        }
-        long[] sqin = new long[n];
-        long[] sqout = new long[n];
-        sqout[s] = 1;
-        for (int i = 0; i < t; i++) {
-            for (int v = 0; v < n; v++) {
-                for (int w : adj[v]) {
-                    sqin[w] += sqout[v];
+        int T = sc.nextInt();
+        s = new int[200200]; //not sure why 200200 works
+        c = new int[200200];
+        for (int t = 1; t <= T; t++) {
+            int n = sc.nextInt();
+            for (int i = 1; i <= n; i++){
+                s[i] = i;
+                s[i+n] = i + n;
+                c[i] = c[i+n] = 0;
+            }
+            for (int i = 0; i < n; i++) {
+                int p = sc.nextInt(), q = sc.nextInt();
+                union(p, q);
+            }
+            boolean bool = true;
+            for (int i = n + n; i > 0; i--) {
+                if (c[find(i)] > 1) {
+                    bool = false;
+                    break;
                 }
             }
-            for (int v = 0; v < n; v++) {
-                sqout[v] = sqin[v];
-                sqin[v] = 0;
-            }
+            System.out.println(bool ? "possible" : "impossible");
         }
-        long total = 0;
-        for (int i = 0; i < n; i++)
-            total += sqout[i];
-        System.out.println(total);
     }
 
     public static class FastScanner {
@@ -102,5 +97,23 @@ public class SquawkVirus {
             }
             return a;
         }
+    }
+    public static void union (int x, int y) {
+        int sx = find(x);
+        int sy = find(y);
+        if (sx == sy)
+            c[sx] = c[sx] + 1;
+        else {
+            s[sy] = sx;
+            c[sx] = c[sx] + c[sy];
+        }
+    }
+    public static int find(int x) {
+        while (x != s[x]){
+            int y = s[x];
+            s[x] = s[s[x]];
+            x = y;
+        }
+        return x;
     }
 }
