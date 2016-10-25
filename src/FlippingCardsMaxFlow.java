@@ -11,25 +11,37 @@ public class FlippingCardsMaxFlow {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
+        long start = System.currentTimeMillis();
         int T = sc.nextInt();
+        StringBuilder sb = new StringBuilder();
         for (int t = 0; t < T; t++) {
             int n = sc.nextInt();
             MaxFlowSolver graph = new PushRelabel();
             Node src = graph.addNode();
             Node snk = graph.addNode();
-            Node[] flowToSource = new Node[4 * n];
-            Node[] flowToSink = new Node[4 * n];
-            for (int i = 0; i < 4 * n; i++) {
+            Node[] flowToSource = new Node[n];
+            Node[] flowToSink = new Node[2 * n];
+            for (int i = 0; i < n; i++) {
                 flowToSource[i] = graph.addNode();
-                flowToSink[i] = graph.addNode();
                 graph.link(src, flowToSource[i], 1);
-                graph.link(flowToSink[i], snk, 1);
+                flowToSink[2*i] = graph.addNode();
+                flowToSink[2*i+1] = graph.addNode();
+                graph.link(flowToSink[2*i], snk, 1);
+                graph.link(flowToSink[2*i+1], snk, 1);
             }
             for (int i = 0; i < n; i++) {
-                graph.link(flowToSource[sc.nextInt()], flowToSink[sc.nextInt()], 1);
+                int a = sc.nextInt() - 1;
+                int b = sc.nextInt() - 1;
+                graph.link(flowToSource[i], flowToSink[a], 1);
+                graph.link(flowToSource[i], flowToSink[b], 1);
             }
-            System.out.println(graph.getMaxFlow(src, snk) > n - 1 ? "possible" : "impossible");
+            long ans = graph.getMaxFlow(src, snk);
+            //System.out.println(ans);
+            sb.append(ans == n ? "possible" : "impossible").append('\n');
         }
+        System.out.println(sb.toString());
+        /*long end = System.currentTimeMillis();
+        System.out.println("Time elapsed (ms)" + (end - start));*/
     }
     // --------------- CUT HERE -------------------
     public static class Node {

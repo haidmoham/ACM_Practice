@@ -1,34 +1,28 @@
 /**
- * Created by mo on 10/17/16.
+ * Created by mo on 10/23/16.
  */
 
 import java.util.*;
 import java.io.*;
+
 import static java.lang.Math.*;
 
-public class Bits {
+public class Simplicity {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        for (int t = 0; t < T; t++) {
-            String in = sc.next();
-            int bc = -1;
-            for (int i = 1; i < in.length() + 1; i++) {
-                int p = Integer.parseInt(in.substring(0, i));
-                //System.out.println(p);
-                bc = max(bc, countOnes(p));
-            }
-            System.out.println(bc);
+        char ch[] = sc.next().trim().toCharArray();
+        int[] counts = new int[26];
+        Arrays.fill(counts, 0);
+        for (char letters : ch) {
+            ++counts[(int) letters - 'a'];
         }
-    }
-    public static int countOnes(int p) {
-        int count = 0;
-        String str = Integer.toBinaryString(p);
-        for (int i = 0; i < str.length(); i++)
-            if (str.charAt(i) == '1')
-                count++;
-        return count;
+        Arrays.sort(counts);
+        int sum = 0;
+        for (int i = 0; i < 24; i++){
+            sum += counts[i];
+        }
+        System.out.println(sum);
     }
 
     public static class FastScanner {

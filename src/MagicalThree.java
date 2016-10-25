@@ -14,7 +14,7 @@ public class MagicalThree {
         //Scanner sc = new Scanner(System.in);
         //System.out.println(Integer.toString(104, 27));
         StringBuilder sb = new StringBuilder();
-        input: while (true) {
+        while (true) {
             int n = sc.nextInt();
             if (n == 0) break;
             sb.append(solve(n)).append('\n');

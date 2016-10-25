@@ -17,17 +17,19 @@ public class FlippingCardsUnionFind {
         c = new int[200200];
         for (int t = 1; t <= T; t++) {
             int n = sc.nextInt();
-            for (int i = 1; i <= n; i++){
+            for (int i = 1; i <= n; i++) {
                 s[i] = i;
-                s[i+n] = i + n;
-                c[i] = c[i+n] = 0;
+                s[i + n] = i + n;
+                c[i] = 0;
             }
+            c[n] = 0;
             for (int i = 0; i < n; i++) {
                 int p = sc.nextInt(), q = sc.nextInt();
                 union(p, q);
             }
             boolean bool = true;
             for (int i = n + n; i > 0; i--) {
+                //System.out.println(c[find(i)]);
                 if (c[find(i)] > 1) {
                     bool = false;
                     break;
