@@ -9,8 +9,8 @@ import static java.lang.Math.*;
 
 public class TransportationDelegation {
     public static void main(String[] args) {
-        //FastScanner sc = new FastScanner();
-        Scanner sc = new Scanner(System.in);
+        FastScanner sc = new FastScanner();
+        //Scanner sc = new Scanner(System.in);
         int s = sc.nextInt(), r = sc.nextInt(), f = sc.nextInt(), t = sc.nextInt();
         MaxFlowSolver graph = new Dinic();
         Node src = graph.addNode();
@@ -24,6 +24,7 @@ public class TransportationDelegation {
         }
         HashMap<String, Node> raw = new HashMap<>();
         HashMap<String, Node> fct = new HashMap<>();
+        HashMap<String, Node> inter = new HashMap<>();
         for (int i = 0; i < r; i++) {
             String tmp = sc.next();
             raw.put(tmp, graph.addNode());
@@ -46,11 +47,11 @@ public class TransportationDelegation {
                     //System.out.println(i + " " + str);
                     graph.link(out[i], fct.get(str), 1);
                 }
-                if (!fct.containsKey(str) && !raw.containsKey(str)) {
+                else {
                     //System.out.println(i + " " + str + " " + i);
-                    Node inter = graph.addNode();
-                    graph.link(out[i], inter, 1);
-                    graph.link(inter, in[i], 1);
+                    inter.putIfAbsent(str, graph.addNode());
+                    graph.link(out[i], inter.get(str), 1);
+                    graph.link(inter.get(str), in[i], 1);
                 }
             }
         }
