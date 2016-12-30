@@ -1,5 +1,11 @@
 /**
- * Created on 10/21/16.
+ * Created on 11/2/16.
+ *
+ * protip
+ *
+ * make sure you're actually caching when you think you're caching
+ * caching is important for dynamic programming
+ *
  */
 
 import java.util.*;
@@ -7,32 +13,53 @@ import java.io.*;
 
 import static java.lang.Math.*;
 
-public class WoodCutting {
+public class CityDestruction {
+    static int[] H;
+    static int[] E;
+    static int N;
+    static int D;
+    static long[][] cache;
     public static void main(String[] args) {
-        //FastScanner sc = new FastScanner();
-        Scanner sc = new Scanner(System.in);
+        FastScanner sc = new FastScanner();
+        //Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
-        for (int t = 0; t < T; t++) {
-            int N = sc.nextInt();
-            ArrayList<Double> in = new ArrayList<>();
-            for (int i = 0; i < N; i++) {
-                int n = sc.nextInt();
-                in.add(sc.nextDouble());
-                for (int j = 1; j < n; j++) {
-                    in.add(in.get(j-1) + sc.nextDouble());
-                }
-            }
-            Collections.sort(in);
-            System.out.println(in);
-            double w = 0;
-            double ps = 0;
-            for (Double p : in){
-                ps += p;
-                w += ps;
-            }
-            System.out.printf("%.17f", w / ((double) in.size()));
-            System.out.println();
+        for (int t = 0; t < T; t++){
+            N = sc.nextInt();
+            D = sc.nextInt();
+
+            cache = new long[2][N+1];
+            Arrays.fill(cache[0], -1L);
+            Arrays.fill(cache[1], -1L);
+            H = new int[N+1];
+            E = new int[N+1];
+            for (int i = 0; i < N; i++)
+                H[i] = sc.nextInt();
+            for (int i = 0; i < N; i++)
+                E[i] = sc.nextInt();
+            if (N == 1)
+                System.out.println(need(H[0]));
+            else System.out.println(dp(0, true, 0));
         }
+    }
+
+    public static long dp(int p, boolean left, long count) {
+        if (p == N)
+            return 0;
+        if (cache[left ? 1 : 0][p] != -1)
+            return cache[left ? 1 : 0][p];
+
+        long v1 = max(0, (H[p] - count + D - 1) / D);
+        long v2 = max(0, (H[p] - E[p + 1] - count + D - 1)/ D);
+
+
+        long ans = min(v1 + dp(p + 1, true, E[p]), v2 + dp(p + 1, false, 0));
+        cache[left ? 1 : 0][p] = ans;
+
+        return ans;
+    }
+
+    public static long need(long delta) {
+        return (delta + D - 1)/D;
     }
     public static class FastScanner {
         BufferedReader br;

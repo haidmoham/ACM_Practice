@@ -1,5 +1,5 @@
 /**
- * Created by mo on 10/10/16.
+ * Created on 10/10/16.
  */
 
 import java.math.BigInteger;
@@ -12,19 +12,16 @@ public class AplusB {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         FFT fft = new FFT(n);
-        long[] pos1 = fft.makePoly();
-        long[] pos2 = fft.makePoly();
+        long[] in = fft.makePoly();
+        long[] freq = fft.makePoly();
         for (int i = 0; i < n; i++) {
-            int input = sc.nextInt();
-            pos1[i] = input;
-            pos2[n - 1 - i] = input;
+            in[i] = sc.nextInt();
         }
-        System.out.println(Arrays.toString(pos1));
-        System.out.println(Arrays.toString(pos2));
-        fft.fastMultiply(pos1, pos2);
-        StringBuilder sb = new StringBuilder();
-        System.out.println(Arrays.toString(pos2));
-        System.out.println(sb.toString());
+        for (int i = 0; i < n; i++) {
+            freq[(int) in[i]-1]++;
+        }
+        fft.fastMultiply(in, freq);
+        System.out.println(in[in.length-2]);
     }
 
     static class FFT {

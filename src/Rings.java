@@ -6,49 +6,60 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.io.*;
 
+
 public class Rings {
+    public static int[][] grid;
+    public static char[][] ch;
+    public static int[] dr = new int[]{-1, 0, 1, 0};
+    public static int[] dc = new int[]{0, 1, 0, -1};
+    public static int r, c;
     public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         //Scanner sc = new Scanner(System.in);
-        int r = sc.nextInt(), c = sc.nextInt();
-        char[][] grid = new char[r][c];
+        r = sc.nextInt();
+        c = sc.nextInt();
+        grid = new int[r][c];
+        ch = new char[r][c];
         for (int i = 0; i < r; i++) {
-            String in = sc.readNextLine();
+            char[] in = sc.readNextLine().toCharArray();
             for (int j = 0; j < c; j++) {
-                grid[i][j] = in.charAt(j);
-            }
-        }
-        //print2D(grid, r, c);
-        String[][] out = new String[r][c];
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < r-1; i++) {
-            for (int j = 1; j < c-1; j++) {
-                if (grid[i][j] == 'T' && (grid[i][j+1] == '.' || grid[i][j-1] == '.'
-                        || grid[i+1][j] == '.' || grid[i-1][j] == '.')){
-                    out[i][j] = ".1";
+                if (in[j] == '.') {
+                    grid[i][j] = 0;
+                    ch[i][j] = '.';
                 }
+                else if (in[j] == 'T') {
+                    ch[i][j] = 'T';
+                    if (i == 0 || j == 0 || i == r - 1 || j == c - 1)
+                        grid[i][j] = 1;
+                }
+                else
+                    grid[i][j] = -1;
             }
         }
-        print2D(grid, r, c);
-        print2DStr(out, r, c);
+        print2D(ch);
+        print2D(grid);
     }
-    public static void print2D(char[][] grid, int r, int c) {
-        for (int i = 0; i < r; i++){
-            for (int j = 0; j < c; j++) {
+    static void print2D(int[][] grid) {
+        for (int i = 0; i < grid.length; i++){
+            for (int j = 0; j < grid[i].length; j++) {
+                System.out.print(grid[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void print2D(char[][] grid) {
+        for (int i = 0; i < grid.length; i++){
+            for (int j = 0; j < grid[i].length; j++) {
                 System.out.print(grid[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    public static void print2DStr(String[][] grid, int r, int c) {
-        for (int i = 0; i < r; i++){
-            for (int j = 0; j < c; j++) {
-                System.out.print(grid[i][j] + " ");
-            }
-            System.out.println();
-        }
+    static boolean valid(int row, int col) {
+        return row >= 0 && row < r && col >= 0 && col < c;
     }
+
 
     public static class FastScanner {
         BufferedReader br;

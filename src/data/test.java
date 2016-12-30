@@ -1,5 +1,5 @@
-/**
- * Created on 10/21/16.
+package data; /**
+ * Created by mo on 10/25/16.
  */
 
 import java.util.*;
@@ -7,33 +7,14 @@ import java.io.*;
 
 import static java.lang.Math.*;
 
-public class WoodCutting {
+public class test {
     public static void main(String[] args) {
         //FastScanner sc = new FastScanner();
         Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        for (int t = 0; t < T; t++) {
-            int N = sc.nextInt();
-            ArrayList<Double> in = new ArrayList<>();
-            for (int i = 0; i < N; i++) {
-                int n = sc.nextInt();
-                in.add(sc.nextDouble());
-                for (int j = 1; j < n; j++) {
-                    in.add(in.get(j-1) + sc.nextDouble());
-                }
-            }
-            Collections.sort(in);
-            System.out.println(in);
-            double w = 0;
-            double ps = 0;
-            for (Double p : in){
-                ps += p;
-                w += ps;
-            }
-            System.out.printf("%.17f", w / ((double) in.size()));
-            System.out.println();
-        }
+        while (sc.hasNext())
+            System.out.println(toLong(sc.next()));
     }
+
     public static class FastScanner {
         BufferedReader br;
         StringTokenizer st;
@@ -94,5 +75,24 @@ public class WoodCutting {
             }
             return a;
         }
+    }
+
+    static long toLong(String in) {
+        char[] ch = in.toCharArray();
+        long temp = 0;
+        for (int i = 0; i < ch.length; i++) {
+            long c = (ch[i] == 'A' ? 1 : ch[i] == 'C' ? 2 : ch[i] == 'T' ? 3 : ch[i] == 'G' ? 4 : -1);
+            //System.out.println(c);
+            temp += (Math.pow(10, i)) * c;
+        }
+        return reverse(temp);
+    }
+    public static long reverse(long x) {
+        long rev = 0;
+        while(x != 0){
+            rev = rev*10 + x%10;
+            x /= 10;
+        }
+        return rev;
     }
 }

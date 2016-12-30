@@ -27,8 +27,7 @@ public class MagicalThree {
         boolean[] isPrime = new boolean[N + 1];
 
         Arrays.fill(isPrime, true);
-        isPrime[0] = false;
-        isPrime[1] = false;
+        isPrime[0] = isPrime[1] = false;
 
         // Iterate through all numbers up to sqrt(N) to
         // locate all of the prime numbers.

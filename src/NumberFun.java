@@ -1,5 +1,5 @@
 /**
- * Created on 10/21/16.
+ * Created on 12/6/16.
  */
 
 import java.util.*;
@@ -7,32 +7,27 @@ import java.io.*;
 
 import static java.lang.Math.*;
 
-public class WoodCutting {
+public class NumberFun {
     public static void main(String[] args) {
-        //FastScanner sc = new FastScanner();
-        Scanner sc = new Scanner(System.in);
+        FastScanner sc = new FastScanner();
+        //Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
-        for (int t = 0; t < T; t++) {
-            int N = sc.nextInt();
-            ArrayList<Double> in = new ArrayList<>();
-            for (int i = 0; i < N; i++) {
-                int n = sc.nextInt();
-                in.add(sc.nextDouble());
-                for (int j = 1; j < n; j++) {
-                    in.add(in.get(j-1) + sc.nextDouble());
-                }
-            }
-            Collections.sort(in);
-            System.out.println(in);
-            double w = 0;
-            double ps = 0;
-            for (Double p : in){
-                ps += p;
-                w += ps;
-            }
-            System.out.printf("%.17f", w / ((double) in.size()));
-            System.out.println();
+        for (int t = 0; t < T; t++){
+            double a = sc.nextDouble(), b = sc.nextDouble(), c = sc.nextDouble();
+            HashSet<Double> set = generate(a, b);
+            System.out.println(set.contains(c) ? "Possible" : "Impossible");
         }
+    }
+
+    public static HashSet<Double> generate(double a, double b) {
+        HashSet<Double> ans = new HashSet<>();
+        ans.add(a * b);
+        ans.add(a + b);
+        ans.add(b / a);
+        ans.add(a / b);
+        ans.add(a - b);
+        ans.add(b - a);
+        return ans;
     }
     public static class FastScanner {
         BufferedReader br;

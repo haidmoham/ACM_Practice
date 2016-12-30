@@ -1,5 +1,5 @@
 /**
- * Created on 10/21/16.
+ * Created on 12/29/16.
  */
 
 import java.util.*;
@@ -7,33 +7,27 @@ import java.io.*;
 
 import static java.lang.Math.*;
 
-public class WoodCutting {
+public class RubiksRevenge {
+    public static char[][] solved = {
+            {'R', 'R', 'R', 'R'},
+            {'G', 'G', 'G', 'G'},
+            {'B', 'B', 'B', 'B'},
+            {'Y', 'Y', 'Y', 'Y'}
+    };
     public static void main(String[] args) {
-        //FastScanner sc = new FastScanner();
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        for (int t = 0; t < T; t++) {
-            int N = sc.nextInt();
-            ArrayList<Double> in = new ArrayList<>();
-            for (int i = 0; i < N; i++) {
-                int n = sc.nextInt();
-                in.add(sc.nextDouble());
-                for (int j = 1; j < n; j++) {
-                    in.add(in.get(j-1) + sc.nextDouble());
-                }
+        FastScanner sc = new FastScanner();
+        //Scanner sc = new Scanner(System.in);
+        char[][] in = new char[4][4];
+        for (int i = 0; i < in.length; i++) {
+            String s = sc.readNextLine();
+            for (int j = 0; j < in[0].length; j++) {
+                in[i][j] = s.charAt(j);
             }
-            Collections.sort(in);
-            System.out.println(in);
-            double w = 0;
-            double ps = 0;
-            for (Double p : in){
-                ps += p;
-                w += ps;
-            }
-            System.out.printf("%.17f", w / ((double) in.size()));
-            System.out.println();
         }
+        for (int i = 0; i < 4; i++)
+            System.out.println(Arrays.toString(in[i]));
     }
+
     public static class FastScanner {
         BufferedReader br;
         StringTokenizer st;
